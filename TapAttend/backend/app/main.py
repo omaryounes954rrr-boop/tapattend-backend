@@ -9,6 +9,7 @@ from .config import settings
 from .database import Base, engine
 from .models import AttendanceLog, CheckinPoint, Organization, User  # noqa: F401
 from .routers import attendance, auth, points, users
+from app.payroll import router as payroll_router
 
 Base.metadata.create_all(bind=engine)
 
@@ -26,6 +27,7 @@ app.include_router(auth.router)
 app.include_router(users.router)
 app.include_router(points.router)
 app.include_router(attendance.router)
+app.include_router(payroll_router)
 
 static_dir = Path(__file__).parent / "static"
 app.mount("/assets", StaticFiles(directory=static_dir / "assets"), name="assets")
